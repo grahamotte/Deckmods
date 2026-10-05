@@ -47,16 +47,18 @@ depends = ["apply:*"]
 #
 
 [tasks.push]
-description = "Force-push master to Codeberg (origin) and GitHub (origin_backup)"
+description = "Fetch and safely push master to origin"
 run = '''
 set -euo pipefail
-push_to() {
-  local remote="$1"
-  local repo="$2"
-  git remote remove "$remote" 2>/dev/null || true
-  git remote add "$remote" "$repo"
-  git push -f "$remote" master
-}
-push_to origin "ssh://git@codeberg.org/grahamotte/deckmods.git"
-push_to origin_backup "git@github.com:grahamotte/deckmods.git"
+if [ "$(git remote get-url origin)" != "git@github.com:grahamotte/deckmods.git" ]; then
+  echo "Refusing to push: origin must point to the GitHub workflow repository" >&2
+  exit 1
+fi
+if [ "$(git remote)" != "origin" ]; then
+  echo "Refusing to push: this repository must have only origin" >&2
+  exit 1
+fi
+git fetch origin
+git merge-base --is-ancestor origin/master master
+git push origin master:refs/heads/master
 '''
