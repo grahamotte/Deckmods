@@ -50,7 +50,7 @@ depends = ["apply:*"]
 description = "Fetch and safely push master to origin"
 run = '''
 set -euo pipefail
-if [ "$(git remote get-url origin)" != "git@github.com:grahamotte/deckmods.git" ]; then
+if [ "$(git remote get-url origin)" != "git@github.com:grahamotte/Deckmods.git" ]; then
   echo "Refusing to push: origin must point to the GitHub workflow repository" >&2
   exit 1
 fi
