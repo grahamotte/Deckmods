@@ -60,3 +60,5 @@ Run install/uninstall flows through mise. Raw SSH is fine for debugging and insp
 When changing mods, follow the add-mod process in `c77/README.md` or `sdv/README.md`, update the appropriate `mod-manifest.json` and scripts locally, then run the relevant mise task. Treat local git as the source of truth; do not pull generated Deck state back into the repo.
 
 Stardew Valley mods install into `Mods/` inside the game directory (not merged into the game root like Cyberpunk). SMAPI is a manual prerequisite — it is not managed by these scripts.
+
+For card work, use Mr. Moto's `mr` CLI: run `mr card claim <CARD>` and follow its output, and see `mr --help` for the rest.
